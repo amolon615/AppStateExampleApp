@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct AppStateExampleAppApp: App {
+    @StateObject var appStateManeger: AppStateManager = .init()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            rootCoordinator
+                .environmentObject(appStateManeger)
         }
+    }
+    
+    @ViewBuilder
+    private var rootCoordinator: some View {
+        let viewModel: UICoordinatorViewModel = .init(appStateManager: appStateManeger)
+        RootCoordinatorView(viewModel: viewModel)
     }
 }
